@@ -24,3 +24,7 @@ def uploadImage(pathToImage):
         print("Failed to upload image.")
 
     return (image)
+
+
+def deleteImage(imageId):
+    client.delete_image(imageId)

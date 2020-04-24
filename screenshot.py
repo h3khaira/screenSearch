@@ -10,6 +10,7 @@ canvas1.pack()
 def takeScreenshot():
     myScreenshot = g.screenshot(region=(0, 0, 300, 400))
     myScreenshot.save('screenshot.jpg')
+    root.quit()
 
 
 def regionSelect():
