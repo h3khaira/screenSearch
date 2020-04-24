@@ -1,6 +1,15 @@
-# Note: in order to do a google image reverse image search, just type the URL https://images.google.com/searchbyimage?image_url= and add the image URL to the end
 import uploadImage as u
+import webbrowser
+import screenshot
 
-image = u.uploadImage('test.jpg')
+# upload the image and creates a link on imgur
+image = u.uploadImage('screenshot.jpg')
 imageLink = image['link']
 imageId = image['id']
+
+# reverse image search the image on google images
+url = "https://images.google.com/searchbyimage?image_url=" + imageLink
+webbrowser.open_new_tab(url)
+
+# delete the image using the image ID
+u.deleteImage(imageId)
