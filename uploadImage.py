@@ -22,7 +22,6 @@ def uploadImage(pathToImage):
         print("Screenshot Link Created")
     except:
         print("Failed to upload image.")
-
     return (image)
 
 
