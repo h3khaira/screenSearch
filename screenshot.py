@@ -1,10 +1,15 @@
 import pyautogui as g
 import tkinter as tk
+from pynput import mouse
 
 root = tk.Tk()
 
 canvas1 = tk.Canvas(root, width=300, height=300)
 canvas1.pack()
+
+
+def mouse_click(x, y, button, pressed):
+    print("click worked")
 
 
 def takeScreenshot():
@@ -14,7 +19,8 @@ def takeScreenshot():
 
 
 def regionSelect():
-    print("test")
+    listener = mouse.Listener(on_click=mouse_click)
+    listener.start()
 
 
 myButton1 = tk.Button(text='Select Region',
