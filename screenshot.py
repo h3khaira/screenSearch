@@ -1,6 +1,5 @@
 import pyautogui as g
 import tkinter as tk
-from pynput import mouse
 
 startx = 0
 starty = 0
@@ -8,35 +7,53 @@ endx = 0
 endy = 0
 
 root = tk.Tk()
+# settings for the transparent window on which the screenshot region is selected
 
 canvas1 = tk.Canvas(root, width=300, height=300)
 canvas1.pack()
 
 
-def mouse_click(x, y, button, pressed):
-    if pressed:
-        startx = x
-        starty = y
-    if not pressed:
-        endx = x
-        endy = y
+def mouseClick(mouseEvent):
+    print("clicked at ", mouseEvent.x, mouseEvent.y)
+    startx = mouseEvent.x
+    starty = mouseEvent.y
+
+
+def mouseRelease(mouseEvent, rootToClose, rootToMax):
+    print("released at ", mouseEvent.x, mouseEvent.y)
+    endx = mouseEvent.x
+    endy = mouseEvent.y
+    rootToClose.destroy()
+    rootToMax.wm_state("normal")
 
 
 def takeScreenshot():
-    myScreenshot = g.screenshot(region=(startx, starty, endx, endy))
+    # myScreenshot = g.screenshot(region=(startx, starty, endx, endy))
+    myScreenshot = g.screenshot(region=(216, 225, 783, 593))
     myScreenshot.save('screenshot.jpg')
     root.quit()
 
 
-def regionSelect():
-    # non-blocking event listener for mouse clicks
-    listener = mouse.Listener(on_click=mouse_click)
-    listener.start()
+def regionSelectMode():
+    # minimize the window containing the buttons
+    root.wm_state('iconic')
+
+    rootTransparent = tk.Tk()
+    # change the alpha value to change the transparency of the screenshot region selection window
+    rootTransparent.attributes('-alpha', 0.05)
+    regionWindow = tk.Canvas(rootTransparent,
+                             width=rootTransparent.winfo_screenwidth(),
+                             height=rootTransparent.winfo_screenheight())
+    regionWindow.bind("<Button-1>", mouseClick)
+    regionWindow.bind("<ButtonRelease-1>",
+                      lambda event: mouseRelease(event, rootTransparent, root))
+    regionWindow.pack()
+    rootTransparent.mainloop()
 
 
 # pressing this button will make the program go into region select mode
 myButton1 = tk.Button(text='Select Region',
-                      command=regionSelect,
+                      command=regionSelectMode,
                       bg='green',
                       fg='white',
                       font=10)
