@@ -1,6 +1,7 @@
 from imgurpython import ImgurClient
+import sys
+sys.path.insert(1, "./resources")
 import keys
-import requests as r
 
 client_id = keys.clientID
 client_secret = keys.clientSecret

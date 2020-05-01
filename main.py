@@ -1,9 +1,11 @@
+import sys
+sys.path.insert(1, "./scripts")
 import uploadImage as u
 import webbrowser
 import screenshot
 
 # upload the image and creates a link on imgur
-image = u.uploadImage('screenshot.jpg')
+image = u.uploadImage('./resources/screenshot.jpg')
 imageLink = image['link']
 imageId = image['id']
 

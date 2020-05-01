@@ -31,7 +31,7 @@ def takeScreenshot():
     root.destroy()
     myScreenshot = g.screenshot(region=(startx, starty, abs(endx - startx),
                                         abs(endy - starty)))
-    myScreenshot.save('screenshot.jpg')
+    myScreenshot.save('./resources/screenshot.jpg')
 
 
 def regionSelectMode():
