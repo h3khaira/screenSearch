@@ -22,9 +22,11 @@ def uploadImage(pathToImage):
         print("Screenshot Link Created")
     except:
         print("Failed to upload image.")
-
     return (image)
 
 
 def deleteImage(imageId):
-    client.delete_image(imageId)
+    try:
+        client.delete_image(imageId)
+    except:
+        print("Failed to delete image")
