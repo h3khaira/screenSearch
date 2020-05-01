@@ -14,13 +14,13 @@ canvas1.pack()
 
 
 def mouseClick(mouseEvent):
-    print("clicked at ", mouseEvent.x, mouseEvent.y)
+    global startx, starty
     startx = mouseEvent.x
     starty = mouseEvent.y
 
 
 def mouseRelease(mouseEvent, rootToClose, rootToMax):
-    print("released at ", mouseEvent.x, mouseEvent.y)
+    global endx, endy
     endx = mouseEvent.x
     endy = mouseEvent.y
     rootToClose.destroy()
@@ -28,10 +28,10 @@ def mouseRelease(mouseEvent, rootToClose, rootToMax):
 
 
 def takeScreenshot():
-    # myScreenshot = g.screenshot(region=(startx, starty, endx, endy))
-    myScreenshot = g.screenshot(region=(216, 225, 783, 593))
+    root.destroy()
+    myScreenshot = g.screenshot(region=(startx, starty, abs(endx - startx),
+                                        abs(endy - starty)))
     myScreenshot.save('screenshot.jpg')
-    root.quit()
 
 
 def regionSelectMode():
