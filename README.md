@@ -3,6 +3,8 @@
 
 screenSearch is a tool that allows for fast reverse image searching of screenshots taken by the user.
 
+**Note**: This tool is not compatible with Python 2.
+
 # How to set-up:
   * First create a local clone using `git clone https://github.com/h3khaira/screenSearch.git`
 
@@ -21,6 +23,6 @@ screenSearch is a tool that allows for fast reverse image searching of screensho
      refreshToken = <Your Refresh Token>
      ```
 
-     Then save the file in the `resources` folder.
+     Then create a folder called `resources` and save the file in that folder.
 
   * Now you can use the tool by running `python main.py` in the home directory

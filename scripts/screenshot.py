@@ -7,7 +7,6 @@ endx = 0
 endy = 0
 
 root = tk.Tk()
-# settings for the transparent window on which the screenshot region is selected
 
 canvas1 = tk.Canvas(root, width=300, height=300)
 canvas1.pack()
@@ -28,14 +27,14 @@ def mouseRelease(mouseEvent, rootToClose, rootToMax):
 
 
 def drawRect(moveEvent, window, x1, y1):
-    highlightRect = window.create_rectangle(x1,
-                                            y1,
-                                            moveEvent.x,
-                                            moveEvent.y,
-                                            outline="black",
-                                            fill="black",
-                                            width=3)
-    window.delete(highlightRect)
+    window.delete("all")
+    window.create_rectangle(x1,
+                            y1,
+                            moveEvent.x,
+                            moveEvent.y,
+                            outline="black",
+                            fill="black",
+                            width=3)
 
 
 def takeScreenshot():
@@ -49,6 +48,7 @@ def regionSelectMode():
     # minimize the window containing the buttons
     root.wm_state('iconic')
 
+    # settings for the transparent window on which the screenshot region is selected
     rootTransparent = tk.Tk()
     # make the window size fixed
     rootTransparent.resizable(width=False, height=False)
