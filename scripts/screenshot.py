@@ -8,7 +8,7 @@ endy = 0
 
 root = tk.Tk()
 
-canvas1 = tk.Canvas(root, width=300, height=300)
+canvas1 = tk.Canvas(root, width=270, height=40)
 canvas1.pack()
 
 
@@ -57,13 +57,12 @@ def regionSelectMode():
     regionWindow = tk.Canvas(rootTransparent,
                              width=rootTransparent.winfo_screenwidth(),
                              height=rootTransparent.winfo_screenheight())
-    regionWindow.bind("<Button-1>", mouseClick)
 
-    # draw rectangle to show the user the highlighted region
+    # allowing the user to click and drag to select screenshot region
+    regionWindow.bind("<Button-1>", mouseClick)
     regionWindow.bind(
         "<B1-Motion>",
         lambda event: drawRect(event, regionWindow, startx, starty))
-
     regionWindow.bind("<ButtonRelease-1>",
                       lambda event: mouseRelease(event, rootTransparent, root))
     regionWindow.pack()
@@ -75,16 +74,16 @@ myButton1 = tk.Button(text='Select Region',
                       command=regionSelectMode,
                       bg='green',
                       fg='white',
-                      font=10)
+                      font=5)
 
 # this button should activate the screenshot save then search it on google
 myButton2 = tk.Button(text='Take Screenshot',
                       command=takeScreenshot,
                       bg='blue',
                       fg='white',
-                      font=10)
+                      font=5)
 
-canvas1.create_window(150, 150, window=myButton1)
-canvas1.create_window(150, 50, window=myButton2)
+canvas1.create_window(70, 20, window=myButton1)
+canvas1.create_window(200, 20, window=myButton2)
 
 root.mainloop()
