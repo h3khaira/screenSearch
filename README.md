@@ -30,7 +30,7 @@ screenSearch is a tool that allows for fast reverse image searching of screensho
 # Usage:
 
 Running `python main.py` opens up the following widget:
-![Widget Picture](https://github.com/h3khaira/screenSearch/tree/master/resources/widget.png "Widget Picture")
+![Widget Picture](https://github.com/h3khaira/screenSearch/blob/master/resources/widget.PNG "Widget Picture")
 
 Press `Select Region` to highlight the area of your screen which you would like to capture. Click and drag your mouse to select the region for capture.
 
