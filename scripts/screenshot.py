@@ -27,6 +27,17 @@ def mouseRelease(mouseEvent, rootToClose, rootToMax):
     rootToMax.wm_state("normal")
 
 
+def drawRect(moveEvent, window, x1, y1):
+    highlightRect = window.create_rectangle(x1,
+                                            y1,
+                                            moveEvent.x,
+                                            moveEvent.y,
+                                            outline="black",
+                                            fill="black",
+                                            width=3)
+    window.delete(highlightRect)
+
+
 def takeScreenshot():
     root.destroy()
     myScreenshot = g.screenshot(region=(startx, starty, abs(endx - startx),
@@ -39,12 +50,20 @@ def regionSelectMode():
     root.wm_state('iconic')
 
     rootTransparent = tk.Tk()
+    # make the window size fixed
+    rootTransparent.resizable(width=False, height=False)
     # change the alpha value to change the transparency of the screenshot region selection window
     rootTransparent.attributes('-alpha', 0.05)
     regionWindow = tk.Canvas(rootTransparent,
                              width=rootTransparent.winfo_screenwidth(),
                              height=rootTransparent.winfo_screenheight())
     regionWindow.bind("<Button-1>", mouseClick)
+
+    # draw rectangle to show the user the highlighted region
+    regionWindow.bind(
+        "<B1-Motion>",
+        lambda event: drawRect(event, regionWindow, startx, starty))
+
     regionWindow.bind("<ButtonRelease-1>",
                       lambda event: mouseRelease(event, rootTransparent, root))
     regionWindow.pack()
