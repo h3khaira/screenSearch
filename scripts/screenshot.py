@@ -39,6 +39,8 @@ def regionSelectMode():
     root.wm_state('iconic')
 
     rootTransparent = tk.Tk()
+    # make the window size fixed
+    rootTransparent.resizable(width=False, height=False)
     # change the alpha value to change the transparency of the screenshot region selection window
     rootTransparent.attributes('-alpha', 0.05)
     regionWindow = tk.Canvas(rootTransparent,

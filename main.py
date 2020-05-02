@@ -1,4 +1,5 @@
 import sys
+from time import sleep
 sys.path.insert(1, "./scripts")
 import uploadImage as u
 import webbrowser
@@ -13,5 +14,7 @@ imageId = image['id']
 url = "https://images.google.com/searchbyimage?image_url=" + imageLink
 webbrowser.open_new_tab(url)
 
+# add delay to allow for image upload and search to finish
+sleep(0.5)
 # delete the image using the image ID
 u.deleteImage(imageId)
