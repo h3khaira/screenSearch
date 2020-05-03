@@ -1,5 +1,7 @@
-from imgurpython import ImgurClient
+import json
+import base64
 import sys
+import requests as r
 sys.path.insert(1, "./resources")
 import keys
 
@@ -8,22 +10,20 @@ client_secret = keys.clientSecret
 access_token = keys.accessToken
 refresh_token = keys.refreshToken
 
-# allows the app to get write access to user account
-client = ImgurClient(client_id, client_secret, access_token, refresh_token)
-
 
 def uploadImage(pathToImage):
-    config = {
-        'name': 'screenshot',
-        'title': 'screenshot',
-        'description': 'screenshot to be searched'
-    }
-    try:
-        image = client.upload_from_path(pathToImage, config=config, anon=False)
-        print("Screenshot Link Created")
-    except:
-        print("Failed to upload image.")
-    return (image)
+    headers = {'Authorization': 'Client-ID %s' % client_id}
+    with open(pathToImage, "rb") as img_file:
+        base64String = base64.b64encode(img_file.read())
+    payload = {'image': base64String, 'type': 'file'}
+
+    response = r.post("https://api.imgur.com/3/upload",
+                      json=payload,
+                      headers=headers)
+
+    print(response.json())
+
+    return (response.json())
 
 
 def deleteImage(imageId):
