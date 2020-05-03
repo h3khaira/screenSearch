@@ -25,5 +25,5 @@ if not forcedExit:
     # add delay to allow for image upload and search to finish
     sleep(0.5)
     # delete the image using the image ID
-    u.deleteImage(imageDeleteHash)
+    deleteResponse = u.deleteImage(imageDeleteHash)
     remove('./resources/screenshot.jpg')
