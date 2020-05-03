@@ -27,5 +27,9 @@ def uploadImage(pathToImage):
 
 def deleteImage(deleteHash):
     headers = {'Authorization': 'Client-ID %s' % client_id}
-    response = r.delete("https://api.imgur.com/3/image/" + deleteHash,
-                        headers=headers)
+    try:
+        response = r.delete("https://api.imgur.com/3/image/" + deleteHash,
+                            headers=headers)
+    except r.exceptions.RequestException as e:
+        raise SystemExit(e)
+    return (response.json())
