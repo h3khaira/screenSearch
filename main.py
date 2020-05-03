@@ -9,9 +9,10 @@ import screenshot
 forcedExit = False
 # upload the image and creates a link on imgur
 try:
-    image = u.uploadImage('./resources/screenshot.jpg')
-    imageLink = image['link']
-    imageId = image['id']
+    imageResponse = u.uploadImage('./resources/screenshot.jpg')
+    imageLink = imageResponse["data"]['link']
+    print(imageLink)
+    imageDeleteHash = imageResponse["data"]['deletehash']
 except UnboundLocalError:
     print("No screenshot found")
     forcedExit = True
@@ -24,5 +25,5 @@ if not forcedExit:
     # add delay to allow for image upload and search to finish
     sleep(0.5)
     # delete the image using the image ID
-    u.deleteImage(imageId)
+    u.deleteImage(imageDeleteHash)
     remove('./resources/screenshot.jpg')
