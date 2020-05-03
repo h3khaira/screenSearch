@@ -1,33 +1,31 @@
-from imgurpython import ImgurClient
-import sys
-sys.path.insert(1, "./resources")
-import keys
+import requests as r
 
-client_id = keys.clientID
-client_secret = keys.clientSecret
-access_token = keys.accessToken
-refresh_token = keys.refreshToken
-
-# allows the app to get write access to user account
-client = ImgurClient(client_id, client_secret, access_token, refresh_token)
+client_id = 'c68e3c744266e70'
 
 
 def uploadImage(pathToImage):
-    config = {
-        'name': 'screenshot',
-        'title': 'screenshot',
-        'description': 'screenshot to be searched'
+    headers = {'Authorization': 'Client-ID %s' % client_id}
+
+    payload = {
+        'type': 'file',
+        'title': 'screenSearch Screenshot',
+        'description': 'image uploaded by the screenSearch project'
     }
+
+    files = {'image': open(pathToImage, 'rb')}
+
     try:
-        image = client.upload_from_path(pathToImage, config=config, anon=False)
-        print("Screenshot Link Created")
-    except:
-        print("Failed to upload image.")
-    return (image)
+        response = r.post("https://api.imgur.com/3/upload",
+                          json=payload,
+                          headers=headers,
+                          files=files)
+    except r.exceptions.RequestException as e:
+        raise SystemExit(e)
+
+    return (response.json())
 
 
-def deleteImage(imageId):
-    try:
-        client.delete_image(imageId)
-    except:
-        print("Failed to delete image")
+def deleteImage(deleteHash):
+    headers = {'Authorization': 'Client-ID %s' % client_id}
+    response = r.delete("https://api.imgur.com/3/image/" + deleteHash,
+                        headers=headers)
